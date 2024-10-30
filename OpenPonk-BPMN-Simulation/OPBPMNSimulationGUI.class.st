@@ -1,0 +1,82 @@
+Class {
+	#name : 'OPBPMNSimulationGUI',
+	#superclass : 'OPSimulationGUI',
+	#category : 'OpenPonk-BPMN-Simulation-Simulation',
+	#package : 'OpenPonk-BPMN-Simulation',
+	#tag : 'Simulation'
+}
+
+{ #category : 'toolbar' }
+OPBPMNSimulationGUI class >> toolbarMenu: aBuilder [
+
+	<opEditorToolbarMenu: #OPBPMNPlugin>
+	self toolbarMenuItemFor: aBuilder
+]
+
+{ #category : 'private - hooks' }
+OPBPMNSimulationGUI >> buttonItems [
+
+	^ OrderedCollection
+		  with: (self newButton
+				   label: 'Pause';
+				   iconName: #testYellow;
+				   help: 'Pause stepping';
+				   action: [ self diagramSimulator stop ])
+		  with: (self newButton
+				   label: 'Play';
+				   iconName: #smallPrintItIcon;
+				   help: 'Step every second';
+				   action: [ self diagramSimulator repeat ])
+		  with: (self newButton
+				   label: 'Step';
+				   iconName: #forwardIcon;
+				   help: 'Step once';
+				   action: [ self diagramSimulator step ])
+		  with: (self newButton
+				   label: 'Configure';
+				   help: 'Open configuration menu';
+				   action: [ self openConfiguration ])
+]
+
+{ #category : 'private - hooks' }
+OPBPMNSimulationGUI >> loadSimulation [
+	"prepares simulation - called with every reload"
+
+	super loadSimulation.
+	diagramSimulator
+		when: OPSimulatorStepped
+		do: [ self updateColors ]
+		for: self.
+	self updateColors
+]
+
+{ #category : 'as yet unclassified' }
+OPBPMNSimulationGUI >> openConfiguration [
+
+	| configWindow |
+	configWindow := OPBPMNSimConfigurationGUI new.
+	configWindow open
+]
+
+{ #category : 'private - hooks' }
+OPBPMNSimulationGUI >> simulatorClass [
+	"diagram simulator class"
+
+	^ OPBPMNSimulator 
+]
+
+{ #category : 'private - hooks' }
+OPBPMNSimulationGUI >> updateColors [
+
+	| controller |
+	diagramSimulator elementsDo: [ :element |
+		controller := self diagramController controllerForModel:
+			              element model.
+		element tokens
+			ifEmpty: [ controller diagramElement updateRenderFromSelf ]
+			ifNotEmpty: [
+				element tokens size > 1
+					ifTrue: [ controller roassalShape color: Color orange darker ]
+					ifFalse: [ controller roassalShape color: Color green darker ].
+				controller roassalShape signalUpdate ] ]
+]
