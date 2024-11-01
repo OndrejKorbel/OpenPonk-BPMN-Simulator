@@ -6,8 +6,8 @@ Class {
 	#tag : 'Simulation'
 }
 
-{ #category : 'as yet unclassified' }
+{ #category : 'testing' }
 OPBPMNMessageFlowSimulator >> isSteppable [
 
-	^ tokens notEmpty 
+	^ self bpmnTokens > 0
 ]

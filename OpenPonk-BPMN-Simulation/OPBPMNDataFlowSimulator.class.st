@@ -6,6 +6,13 @@ Class {
 	#tag : 'Simulation'
 }
 
+{ #category : 'adding' }
+OPBPMNDataFlowSimulator >> addBpmnTokens: anInteger [
+	"do nothing"
+
+	
+]
+
 { #category : 'actions' }
 OPBPMNDataFlowSimulator >> fire [
 

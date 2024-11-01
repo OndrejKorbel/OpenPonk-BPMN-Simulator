@@ -49,13 +49,6 @@ OPBPMNFlowSimulator >> isSimulable [
 	^ true
 ]
 
-{ #category : 'testing' }
-OPBPMNFlowSimulator >> isSteppable [
-	"can I step right now?"
-
-	^ self subclassResponsibility 
-]
-
 { #category : 'initialization' }
 OPBPMNFlowSimulator >> setDefaultStepping [
 	"sets default stepping settings"
