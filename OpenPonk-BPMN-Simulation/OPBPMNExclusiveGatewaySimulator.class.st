@@ -9,8 +9,7 @@ Class {
 { #category : 'actions' }
 OPBPMNExclusiveGatewaySimulator >> fire [
 
-	self canSendTokens ifFalse: [ ^ self ].
-	self unmovedTokens do: [ :token |
-		self removeToken: token.
-		outgoingActive first handleToken: token ]
+	self canSendBpmnTokens ifFalse: [ ^ self ].
+	self outgoingActive first addBpmnTokens: self bpmnTokens.
+	self bpmnTokens: 0
 ]

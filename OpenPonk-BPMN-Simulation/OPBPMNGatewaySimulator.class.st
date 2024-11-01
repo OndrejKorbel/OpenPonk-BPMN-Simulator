@@ -35,7 +35,7 @@ OPBPMNGatewaySimulator class >> model: anElement diagramSimulator: aDiagramSimul
 ]
 
 { #category : 'testing' }
-OPBPMNGatewaySimulator >> canSendTokens [
+OPBPMNGatewaySimulator >> canSendBpmnTokens [
 
 	^ outgoingActive notEmpty
 ]

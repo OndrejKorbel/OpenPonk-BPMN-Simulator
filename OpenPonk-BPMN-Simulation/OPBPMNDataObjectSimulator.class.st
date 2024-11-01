@@ -9,5 +9,5 @@ Class {
 { #category : 'actions' }
 OPBPMNDataObjectSimulator >> fire [
 
-	self unmovedTokens do: [ :token | self removeToken: token ]
+	self bpmnTokens: 0
 ]

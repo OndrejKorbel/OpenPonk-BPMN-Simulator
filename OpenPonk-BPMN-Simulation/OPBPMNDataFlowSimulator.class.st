@@ -9,32 +9,19 @@ Class {
 { #category : 'actions' }
 OPBPMNDataFlowSimulator >> fire [
 
-	| aToken |
-	self unmovedTokens do: [ :token | self removeToken: token ].
-	self source tokens ifEmpty: [ ^ self ].
-	aToken := OPBPMNToken new moved: true.
-	self addToken: aToken.
-	self target handleToken: aToken copy from: self
-]
-
-{ #category : 'as yet unclassified' }
-OPBPMNDataFlowSimulator >> handleToken: aToken [
-	"do nothing"
-
+	| tokenCount |
+	self bpmnTokens: 0.
+	tokenCount := self source bpmnTokens.
+	tokenCount = 0 ifTrue: [ ^ self ].
+	self bpmnTokens: tokenCount.
+	self target addBpmnTokens: tokenCount from: self
 ]
 
 { #category : 'initialization' }
 OPBPMNDataFlowSimulator >> initialize [
 
 	super initialize.
-	priority := -1
-]
-
-{ #category : 'testing' }
-OPBPMNDataFlowSimulator >> isSimulable [
-	"could there be any possibility to step? - rigid: should return always true or always false"
-
-	^ true
+	priority := -2
 ]
 
 { #category : 'testing' }

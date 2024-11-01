@@ -10,6 +10,6 @@ Class {
 OPBPMNEndEventSimulator >> fire [
 
 	self model type = OPBPMNNodeType Terminate
-		ifFalse: [ self unmovedTokens do: [ :t | self removeToken: t ] ]
-		ifTrue: [ diagramSimulator elementsDo: [ :el | el removeAllTokens ] ]
+		ifFalse: [ self bpmnTokens: 0 ]
+		ifTrue: [ diagramSimulator elementsDo: [ :el | el bpmnTokens: 0 ] ]
 ]

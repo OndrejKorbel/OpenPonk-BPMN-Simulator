@@ -1,13 +1,40 @@
 Class {
 	#name : 'OPBPMNNodeSimulator',
 	#superclass : 'OPElementSimulator',
+	#instVars : [
+		'bpmnTokens'
+	],
 	#category : 'OpenPonk-BPMN-Simulation-Simulation',
 	#package : 'OpenPonk-BPMN-Simulation',
 	#tag : 'Simulation'
 }
 
+{ #category : 'adding' }
+OPBPMNNodeSimulator >> addBpmnTokens: anInteger [
+
+	self addBpmnTokens: anInteger from: nil
+]
+
+{ #category : 'adding' }
+OPBPMNNodeSimulator >> addBpmnTokens: anInteger from: aFlow [
+
+	self bpmnTokens: self bpmnTokens + anInteger
+]
+
+{ #category : 'accessing' }
+OPBPMNNodeSimulator >> bpmnTokens [
+
+	^ bpmnTokens
+]
+
+{ #category : 'accessing' }
+OPBPMNNodeSimulator >> bpmnTokens: anInteger [
+
+	bpmnTokens := anInteger 
+]
+
 { #category : 'testing' }
-OPBPMNNodeSimulator >> canSendTokens [
+OPBPMNNodeSimulator >> canSendBpmnTokens [
 
 	^ outgoing notEmpty
 ]
@@ -15,22 +42,16 @@ OPBPMNNodeSimulator >> canSendTokens [
 { #category : 'actions' }
 OPBPMNNodeSimulator >> fire [
 
-	self canSendTokens ifFalse: [ ^ self ].
-	self unmovedTokens do: [ :token |
-		self removeToken: token.
-		self outgoingDo: [ :flow | flow handleToken: token copy ] ]
+	self canSendBpmnTokens ifFalse: [ ^ self ].
+	self outgoingDo: [ :flow | flow addBpmnTokens: self bpmnTokens ].
+	self bpmnTokens: 0
 ]
 
-{ #category : 'as yet unclassified' }
-OPBPMNNodeSimulator >> handleToken: aToken [
+{ #category : 'initialization' }
+OPBPMNNodeSimulator >> initialize [
 
-	self handleToken: aToken from: nil
-]
-
-{ #category : 'as yet unclassified' }
-OPBPMNNodeSimulator >> handleToken: aToken from: aFlow [
-
-	self addToken: aToken
+	super initialize.
+	bpmnTokens := 0
 ]
 
 { #category : 'testing' }
@@ -46,7 +67,7 @@ OPBPMNNodeSimulator >> isSimulable [
 OPBPMNNodeSimulator >> isSteppable [
 	"can I step right now?"
 
-	^ tokens notEmpty
+	^ self bpmnTokens > 0
 ]
 
 { #category : 'initialization' }
@@ -57,10 +78,4 @@ OPBPMNNodeSimulator >> setDefaultStepping [
 	self
 		resetActions;
 		addAction: [ :item | item fire ]
-]
-
-{ #category : 'as yet unclassified' }
-OPBPMNNodeSimulator >> unmovedTokens [
-
-	^ self tokens reject: [ :t | t moved ]
 ]

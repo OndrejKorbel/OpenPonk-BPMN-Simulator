@@ -9,8 +9,8 @@ Class {
 { #category : 'actions' }
 OPBPMNInclusiveGatewaySimulator >> fire [
 
-	self canSendTokens ifFalse: [ ^ self ].
-	self unmovedTokens do: [ :token |
-		self removeToken: token.
-		outgoingActive do: [ :flow | flow handleToken: token ] ]
+	self canSendBpmnTokens ifFalse: [ ^ self ].
+	self outgoingActive do: [ :flow |
+		flow addBpmnTokens: self bpmnTokens ].
+	self bpmnTokens: 0
 ]

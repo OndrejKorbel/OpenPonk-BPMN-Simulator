@@ -40,10 +40,3 @@ OPBPMNSimulator >> setDefaultStepping [
 		resetActions;
 		addAction: [ :item | item step ]
 ]
-
-{ #category : 'actions' }
-OPBPMNSimulator >> step [
-
-	super step.
-	self tokens do: [ :t | t moved: false ]
-]

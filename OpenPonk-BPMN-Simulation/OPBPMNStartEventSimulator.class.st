@@ -10,5 +10,5 @@ Class {
 OPBPMNStartEventSimulator >> initialize [
 
 	super initialize.
-	self addToken: OPBPMNToken new
+	bpmnTokens := 1
 ]

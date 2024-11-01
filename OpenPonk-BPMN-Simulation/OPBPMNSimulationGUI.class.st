@@ -72,10 +72,10 @@ OPBPMNSimulationGUI >> updateColors [
 	diagramSimulator elementsDo: [ :element |
 		controller := self diagramController controllerForModel:
 			              element model.
-		element tokens
-			ifEmpty: [ controller diagramElement updateRenderFromSelf ]
-			ifNotEmpty: [
-				element tokens size > 1
+		element bpmnTokens > 0
+			ifFalse: [ controller diagramElement updateRenderFromSelf ]
+			ifTrue: [
+				element bpmnTokens > 1
 					ifTrue: [ controller roassalShape color: Color orange darker ]
 					ifFalse: [ controller roassalShape color: Color green darker ].
 				controller roassalShape signalUpdate ] ]
