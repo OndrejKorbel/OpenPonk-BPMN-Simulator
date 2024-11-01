@@ -9,45 +9,35 @@ Class {
 	#tag : 'Simulation'
 }
 
-{ #category : 'actions' }
-OPBPMNGatewaySimulator >> fire [
+{ #category : 'instance creation' }
+OPBPMNGatewaySimulator class >> model: anElement diagramSimulator: aDiagramSimulator [
 
-	| type |
-	self canSendTokens ifFalse: [ ^ self ].
-	type := self model type.
-	type = OPBPMNNodeType Parallel ifTrue: [ self fireExclusive ].
-	type = OPBPMNNodeType Inclusive ifTrue: [ self fireExclusive ].
-	type = OPBPMNNodeType Exclusive ifTrue: [ self fireExclusive ].
-	type = OPBPMNNodeType Complex ifTrue: [ self fireExclusive ].
-	type = OPBPMNNodeType Eventbased ifTrue: [ self fireExclusive ].
-	type = OPBPMNNodeType None ifTrue: [ self fireExclusive ]
+	| type simulator |
+	type := anElement type.
+
+	type = OPBPMNNodeType Parallel ifTrue: [
+		simulator := OPBPMNParallelGatewaySimulator new ].
+
+	({
+		 OPBPMNNodeType Inclusive.
+		 OPBPMNNodeType Complex } includes: type) ifTrue: [
+		simulator := OPBPMNInclusiveGatewaySimulator new ].
+
+	({
+		 OPBPMNNodeType Exclusive.
+		 OPBPMNNodeType Eventbased } includes: type) ifTrue: [
+		simulator := OPBPMNExclusiveGatewaySimulator new ].
+
+	^ simulator
+		  model: anElement;
+		  diagramSimulator: aDiagramSimulator;
+		  yourself
 ]
 
-{ #category : 'as yet unclassified' }
-OPBPMNGatewaySimulator >> fireExclusive [
+{ #category : 'testing' }
+OPBPMNGatewaySimulator >> canSendTokens [
 
-	self unmovedTokens do: [ :token |
-		self removeToken: token.
-		outgoingActive do: [ :flow | flow handleToken: token ] ]
-]
-
-{ #category : 'as yet unclassified' }
-OPBPMNGatewaySimulator >> handleToken: aToken from: aFlow [
-
-	| type |
-	type := self model type.
-	type = OPBPMNNodeType Parallel ifTrue: [ self addToken: aToken ].
-	type = OPBPMNNodeType Inclusive ifTrue: [ self addToken: aToken ].
-	type = OPBPMNNodeType Exclusive ifTrue: [ self addToken: aToken ].
-	type = OPBPMNNodeType Complex ifTrue: [ self addToken: aToken ].
-	type = OPBPMNNodeType Eventbased ifTrue: [ self addToken: aToken ].
-	type = OPBPMNNodeType None ifTrue: [ self addToken: aToken ]
-]
-
-{ #category : 'as yet unclassified' }
-OPBPMNGatewaySimulator >> handleTokenParallel: aToken from: aFlow [
-
-	
+	^ outgoingActive notEmpty
 ]
 
 { #category : 'actions' }
