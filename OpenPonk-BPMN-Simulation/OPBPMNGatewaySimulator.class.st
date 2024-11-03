@@ -40,7 +40,7 @@ OPBPMNGatewaySimulator >> canSendBpmnTokens [
 	^ outgoingActive notEmpty
 ]
 
-{ #category : 'actions' }
+{ #category : 'initialization' }
 OPBPMNGatewaySimulator >> initialize [
 
 	super initialize.

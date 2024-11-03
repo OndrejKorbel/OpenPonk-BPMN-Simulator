@@ -10,12 +10,6 @@ Class {
 }
 
 { #category : 'adding' }
-OPBPMNNodeSimulator >> addBpmnTokens: anInteger [
-
-	self addBpmnTokens: anInteger from: nil
-]
-
-{ #category : 'adding' }
 OPBPMNNodeSimulator >> addBpmnTokens: anInteger from: aFlow [
 
 	self bpmnTokens: self bpmnTokens + anInteger
