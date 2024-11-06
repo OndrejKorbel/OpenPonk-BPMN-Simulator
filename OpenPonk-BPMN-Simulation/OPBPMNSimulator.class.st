@@ -1,6 +1,9 @@
 Class {
 	#name : 'OPBPMNSimulator',
 	#superclass : 'OPDiagramSimulator',
+	#instVars : [
+		'configurableGateways'
+	],
 	#category : 'OpenPonk-BPMN-Simulation-Simulation',
 	#package : 'OpenPonk-BPMN-Simulation',
 	#tag : 'Simulation'
@@ -26,6 +29,36 @@ OPBPMNSimulator class >> initialClassMapping [
 		  at: OPBPMNSubProcessModel put: OPBPMNSubProcessSimulator;
 		  at: OPBPMNPoolModel put: OPBPMNPoolSimulator;
 		  yourself
+]
+
+{ #category : 'accessing' }
+OPBPMNSimulator >> configurableGateways [
+
+	^ configurableGateways
+]
+
+{ #category : 'initialization' }
+OPBPMNSimulator >> initialize [
+
+	super initialize.
+	configurableGateways := OrderedCollection new
+]
+
+{ #category : 'private - creation' }
+OPBPMNSimulator >> loadConfigurableGateways [
+	"selects elements which are configurable gateways"
+
+	configurableGateways := elements select: [ :element |
+		                        element isGateway and:
+			                        element isConfigurable ]
+]
+
+{ #category : 'private - creation' }
+OPBPMNSimulator >> loadItems [
+	"creates simulators for model elements"
+
+	super loadItems.
+	self loadConfigurableGateways 
 ]
 
 { #category : 'stepping' }

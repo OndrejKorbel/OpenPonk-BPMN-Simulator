@@ -1,6 +1,9 @@
 Class {
 	#name : 'OPBPMNSimulationGUI',
 	#superclass : 'OPSimulationGUI',
+	#instVars : [
+		'configMenu'
+	],
 	#category : 'OpenPonk-BPMN-Simulation-Simulation',
 	#package : 'OpenPonk-BPMN-Simulation',
 	#tag : 'Simulation'
@@ -38,6 +41,18 @@ OPBPMNSimulationGUI >> buttonItems [
 				   action: [ self openConfiguration ])
 ]
 
+{ #category : 'accessing' }
+OPBPMNSimulationGUI >> configMenu [
+
+	^ configMenu
+]
+
+{ #category : 'accessing' }
+OPBPMNSimulationGUI >> configMenu: aPresenter [
+
+	configMenu := aPresenter
+]
+
 { #category : 'private - hooks' }
 OPBPMNSimulationGUI >> loadSimulation [
 	"prepares simulation - called with every reload"
@@ -50,12 +65,15 @@ OPBPMNSimulationGUI >> loadSimulation [
 	self updateColors
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'instance creation' }
 OPBPMNSimulationGUI >> openConfiguration [
 
-	| configWindow |
-	configWindow := OPBPMNSimConfigurationGUI new.
-	configWindow open
+	self configMenu ifNil: [
+		self configMenu: (OPBPMNSimConfigurationGUI new
+				 diagramSimulator: self diagramSimulator;
+				 yourself) ].
+
+	self configMenu open
 ]
 
 { #category : 'private - hooks' }

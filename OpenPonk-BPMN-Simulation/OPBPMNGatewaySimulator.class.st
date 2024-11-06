@@ -47,6 +47,18 @@ OPBPMNGatewaySimulator >> initialize [
 	outgoingActive := OrderedCollection new
 ]
 
+{ #category : 'testing' }
+OPBPMNGatewaySimulator >> isConfigurable [
+
+	^ true
+]
+
+{ #category : 'testing' }
+OPBPMNGatewaySimulator >> isGateway [
+
+	^ true
+]
+
 { #category : 'creation' }
 OPBPMNGatewaySimulator >> loadConnectedItems [
 	"loads and/or connects appropriate tokens and elements"

@@ -30,8 +30,7 @@ OPBPMNFlowSimulator >> bpmnTokens: anInteger [
 { #category : 'actions' }
 OPBPMNFlowSimulator >> fire [
 
-	self target addBpmnTokens: self bpmnTokens from: self.
-	self bpmnTokens: 0
+^ self subclassResponsibility 
 ]
 
 { #category : 'initialization' }
@@ -40,6 +39,18 @@ OPBPMNFlowSimulator >> initialize [
 	super initialize.
 	bpmnTokens := 0.
 	priority := -1
+]
+
+{ #category : 'testing' }
+OPBPMNFlowSimulator >> isConfigurable [
+
+	^ false
+]
+
+{ #category : 'testing' }
+OPBPMNFlowSimulator >> isGateway [
+
+	^ false
 ]
 
 { #category : 'testing' }

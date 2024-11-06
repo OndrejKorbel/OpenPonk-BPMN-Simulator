@@ -6,6 +6,13 @@ Class {
 	#tag : 'Simulation'
 }
 
+{ #category : 'actions' }
+OPBPMNSequenceFlowSimulator >> fire [
+
+	self target addBpmnTokens: self bpmnTokens from: self.
+	self bpmnTokens: 0
+]
+
 { #category : 'testing' }
 OPBPMNSequenceFlowSimulator >> isSteppable [
 	"can I step right now?"

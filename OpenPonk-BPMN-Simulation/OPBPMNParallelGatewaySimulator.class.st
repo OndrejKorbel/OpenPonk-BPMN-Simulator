@@ -47,6 +47,12 @@ OPBPMNParallelGatewaySimulator >> initialize [
 	incomingBpmnTokens := Dictionary new
 ]
 
+{ #category : 'testing' }
+OPBPMNParallelGatewaySimulator >> isConfigurable [
+
+	^ false
+]
+
 { #category : 'creation' }
 OPBPMNParallelGatewaySimulator >> loadConnectedItems [
 
