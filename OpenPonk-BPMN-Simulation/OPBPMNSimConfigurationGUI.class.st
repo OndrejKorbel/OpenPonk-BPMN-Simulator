@@ -87,7 +87,7 @@ OPBPMNSimConfigurationGUI >> initializeWindow: aWindowPresenter [
 	super initializeWindow: aWindowPresenter.
 	aWindowPresenter
 		title: 'Simulator Configuration';
-		initialExtent: 400 @ 200
+		initialExtent: 400 @ 250
 ]
 
 { #category : 'showing' }

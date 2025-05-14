@@ -6,9 +6,9 @@ Class {
 	#tag : 'Simulation'
 }
 
-{ #category : 'initialization' }
-OPBPMNStartEventSimulator >> initialize [
+{ #category : 'creation' }
+OPBPMNStartEventSimulator >> loadConnectedItems [
+	"loads and/or connects appropriate tokens and elements"
 
-	super initialize.
-	bpmnTokens := 1
+	model owner = diagramSimulator model ifTrue: [ bpmnTokens := 1 ]
 ]

@@ -2,7 +2,8 @@ Class {
 	#name : 'OPBPMNNodeSimulator',
 	#superclass : 'OPElementSimulator',
 	#instVars : [
-		'bpmnTokens'
+		'bpmnTokens',
+		'blocked'
 	],
 	#category : 'OpenPonk-BPMN-Simulation-Simulation',
 	#package : 'OpenPonk-BPMN-Simulation',
@@ -13,6 +14,18 @@ Class {
 OPBPMNNodeSimulator >> addBpmnTokens: anInteger from: aFlow [
 
 	self bpmnTokens: self bpmnTokens + anInteger
+]
+
+{ #category : 'accessing' }
+OPBPMNNodeSimulator >> blocked [
+
+	^ blocked
+]
+
+{ #category : 'accessing' }
+OPBPMNNodeSimulator >> blocked: aBoolean [
+
+	blocked := aBoolean
 ]
 
 { #category : 'accessing' }
@@ -45,7 +58,8 @@ OPBPMNNodeSimulator >> fire [
 OPBPMNNodeSimulator >> initialize [
 
 	super initialize.
-	bpmnTokens := 0
+	bpmnTokens := 0.
+	blocked := false
 ]
 
 { #category : 'testing' }
@@ -63,9 +77,7 @@ OPBPMNNodeSimulator >> isGateway [
 { #category : 'testing' }
 OPBPMNNodeSimulator >> isSimulable [
 	"could there be any possibility to step? - rigid: should return always true or always false"
-
-	"^ self subclassResponsibility"
-
+	
 	^ true
 ]
 
@@ -73,7 +85,7 @@ OPBPMNNodeSimulator >> isSimulable [
 OPBPMNNodeSimulator >> isSteppable [
 	"can I step right now?"
 
-	^ self bpmnTokens > 0
+	^ self bpmnTokens > 0 and: self blocked not
 ]
 
 { #category : 'initialization' }

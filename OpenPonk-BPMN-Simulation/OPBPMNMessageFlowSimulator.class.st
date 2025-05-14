@@ -9,7 +9,7 @@ Class {
 { #category : 'actions' }
 OPBPMNMessageFlowSimulator >> fire [
 
-	self flag: #TODO. "Outline target to show message being delivered"
+	self target blocked: false.
 	self bpmnTokens: 0
 ]
 
