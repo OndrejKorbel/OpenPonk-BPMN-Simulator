@@ -10,5 +10,6 @@ Class {
 OPBPMNStartEventSimulator >> loadConnectedItems [
 	"loads and/or connects appropriate tokens and elements"
 
+	super loadConnectedItems.
 	model owner = diagramSimulator model ifTrue: [ bpmnTokens := 1 ]
 ]

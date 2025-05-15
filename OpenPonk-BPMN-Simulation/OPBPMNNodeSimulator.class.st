@@ -43,7 +43,7 @@ OPBPMNNodeSimulator >> bpmnTokens: anInteger [
 { #category : 'testing' }
 OPBPMNNodeSimulator >> canSendBpmnTokens [
 
-	^ outgoing notEmpty
+	^ outgoing notEmpty and: blocked not
 ]
 
 { #category : 'actions' }
