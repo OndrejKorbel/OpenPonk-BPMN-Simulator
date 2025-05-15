@@ -90,10 +90,3 @@ OPBPMNSimConfigurationGUI >> initializeWindow: aWindowPresenter [
 		title: 'Simulator Configuration';
 		initialExtent: 400 @ 50 * (gatewayPresenters size + 1)
 ]
-
-{ #category : 'showing' }
-OPBPMNSimConfigurationGUI >> open [
-
-	super initialize.
-	super open
-]
