@@ -40,7 +40,8 @@ OPBPMNSimConfigurationGUI >> diagramSimulator [
 { #category : 'initialization' }
 OPBPMNSimConfigurationGUI >> diagramSimulator: aDiagramSimulator [
 
-	diagramSimulator := aDiagramSimulator
+	diagramSimulator := aDiagramSimulator.
+	super initialize
 ]
 
 { #category : 'initialization' }
@@ -87,7 +88,7 @@ OPBPMNSimConfigurationGUI >> initializeWindow: aWindowPresenter [
 	super initializeWindow: aWindowPresenter.
 	aWindowPresenter
 		title: 'Simulator Configuration';
-		initialExtent: 400 @ 250
+		initialExtent: 400 @ 50 * (gatewayPresenters size + 1)
 ]
 
 { #category : 'showing' }
